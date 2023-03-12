@@ -27,6 +27,8 @@ class WaveCollapse:
         '''
         self.chars = {"W", "S", "G", "T", "E"}
 
+
+
         # domain of all tile types
         self.water = {"W", "S"}
         self.sand = {"S", "W", "G"}
@@ -42,25 +44,8 @@ class WaveCollapse:
         for row in self.matrix: 
             for col in row: 
                 print(col, end=" ") 
-                
             print("\n")
         print("\n")
-
-    def get_surrounding(self, tile): 
-        '''Given a specific character tile return list of possible neighbors'''
-        if tile == "W": # Water  
-            neighbors = ["W", "S"]
-        elif tile == "S": # Sand 
-            neighbors = ["S", "W", "G"]
-        elif tile == "G": 
-            neighbors = ["G", "S", "D", "T"]
-        elif tile == "D": 
-            neighbors = ["D", "G"]
-        elif tile == "T": 
-            neighbors = ["T", "G"]
-
-        return neighbors
-
 
 
     def check_valid_tile(self, row, col): 
@@ -141,7 +126,6 @@ class WaveCollapse:
                 domain_set = domain_set.intersection(self.grass)
             if self.matrix[tile[0]][tile[1]] == "D": 
                 domain_set = domain_set.intersection(self.dirt)
-
             if self.matrix[tile[0]][tile[1]] == "T": 
                 domain_set = domain_set.intersection(self.trees)
 
@@ -159,6 +143,33 @@ class WaveCollapse:
         return (rand_row, rand_col)
 
 
+    def collapse_tile(self, row, col):  
+
+        # Up 
+        if self.check_valid_tile(row - 1, col): 
+            pass 
+        
+        # Right 
+        if self.check_valid_tile(row, col+1): 
+            pass  
+
+        # Down
+        if self.check_valid_tile(row + 1, col): 
+            pass 
+
+        # Left 
+        if self.check_valid_tile(row, col - 1): 
+            pass 
+
+
+
+    def wfc(self): 
+        rand_tile = self.get_random_tile() 
+        self.matrix[rand_tile[0]][rand_tile[1]] = random.choice(self.chars)
+        while self.fill < len(self.matrix) * len(self.matrix): 
+            pass 
+
+
     def iterated_wave(self):  
         tile = random.choice(list(self.chars))
         self.matrix[0][0] = tile 
@@ -172,7 +183,8 @@ class WaveCollapse:
 
 
 
-#m1 = Map()
-#w1 = WaveCollapse(m1.world_map)
-#w1.iterated_wave()
+m1 = Map(3)
+w1 = WaveCollapse(m1.world_map)
+w1.iterated_wave()
+w1.pprint_map()
 

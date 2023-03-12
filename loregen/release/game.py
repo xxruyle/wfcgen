@@ -36,18 +36,19 @@ class Game():
         y = 0 
         for row in matrix: 
             for char in row: 
-                if char == "W": 
+                if char['value'] == "W": 
                     color = pygame.Color("Blue")
-                elif char == "G": 
-                    color = pygame.Color(21,61,42)  
-                elif char == "S":
+                elif char['value'] == "G": 
+                    color = pygame.Color(21,71,52)  
+                elif char['value'] == "S":
                     color = pygame.Color(225,191,146)
-                elif char == "T": 
-                    color = pygame.Color(21,71,52)
-                elif char == "D": 
-                    color = pygame.Color("#987654")
-                elif char == "E": 
+                elif char['value'] == "T": 
+                    color = pygame.Color(21,61,42)
+                elif char['value'] == "D": 
+                    color = pygame.Color("#050A30")
+                elif char['value'] == "E": 
                     color = pygame.Color("Gray")
+
 
 
 
@@ -75,9 +76,9 @@ class Game():
                     self.loop = False 
 
 
-m1 = Map(50)
+m1 = Map(100)
 w1 = WaveCollapse(m1.world_map)
-w1.iterated_wave()
-
-g1 = Game(w1.matrix, m1.init_grid())
+w1.make_grid()
+wfc_grid = w1.wfc()
+g1 = Game(wfc_grid, m1.init_grid())
 g1.run(0)
